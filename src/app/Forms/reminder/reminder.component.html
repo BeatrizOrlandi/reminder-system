@@ -6,14 +6,24 @@
     </mat-card-header>
     <form [formGroup]="formulario" class="row">
       <mat-form-field appearance="fill" class="col-md-4">
-        <input matInput placeholder="nome" formControlnome="name">
+        <mat-label>Nome do lembrete</mat-label>
+        <input matInput formControlName="nome">
+        <app-vmessage *ngIf="formulario.get('nome')?.errors && formulario.get('nome')?.touched"
+          text="É necessário dar um nome ao lembrete!">
+        </app-vmessage>
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="col-md-4">
-        <input matInput [matDatepicker]="picker" placeholder="data" formControlName="data">
-
+        <mat-label>Data do lembrete</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="data">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <app-vmessage *ngIf="formulario.get('data')?.errors && formulario.get('data')?.touched"
+          text="É necessário adionar data ao lembrete!"></app-vmessage>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
+      <div class="center">
+        <button [disabled]="formulario.invalid" type="submit" class="btn btn-primary btn-block">login</button>
+      </div>
     </form>
   </mat-card>
 </div>

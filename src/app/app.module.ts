@@ -16,13 +16,15 @@ import { AppComponent } from './app.component';
 import { ReminderComponent } from './Forms/reminder/reminder.component';
 import { MenuComponent } from './Components/menu/menu.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { VMessageComponent } from './Components/vmessage/vmessage.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ReminderComponent,
-    MenuComponent
+    MenuComponent,
+    VMessageComponent
   ],
   imports: [
     BrowserModule,
