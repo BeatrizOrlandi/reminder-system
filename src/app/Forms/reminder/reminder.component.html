@@ -1,4 +1,6 @@
 <div class="container center">
+
+  <!-- card de Inserção e atualização de novo lembrete -->
   <mat-card class="card-capacity">
     <mat-card-header>
       <mat-card-title>Lembrete</mat-card-title>
@@ -27,3 +29,14 @@
     </form>
   </mat-card>
 </div>
+
+  <!-- Listagem de lembretes -->
+  <div class="container">
+    <mat-list>
+      <mat-list-item *ngFor="let note of listaLembretes">
+        <mat-icon matListItemIcon>note</mat-icon>
+        <div matListItemTitle>{{note.nome}}</div>
+        <div matListItemLine>{{note.data | date}}</div>
+      </mat-list-item>
+    </mat-list>
+    </div>

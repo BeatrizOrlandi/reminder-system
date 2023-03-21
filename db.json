@@ -1,0 +1,19 @@
+{
+  "lembretes": [
+    {
+      "id": 100,
+      "nome": "Jose C Macoratti",
+      "data": "02/10/2002"
+    },
+    {
+      "id": 200,
+      "nome": "Maria Barbosa",
+      "data": "02/10/2002"
+    },
+    {
+      "id": 300,
+      "nome": "Helana Sanches",
+      "data": "02/10/2002"
+    }
+]
+}
