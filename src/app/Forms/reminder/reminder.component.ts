@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormControl,FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-reminder',
@@ -8,7 +8,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class ReminderComponent {
 
-  formulario: FormGroup;
+  formulario = new FormGroup({
+    data: new FormControl(),
+    nome: new FormControl()
+  });
 
   constructor(private fb: FormBuilder) { }
 

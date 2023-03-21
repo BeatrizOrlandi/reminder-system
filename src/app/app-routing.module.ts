@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ReminderComponent } from './Forms/reminder/reminder.component';
 
 const routes: Routes = [
-  { path: 'formulario', component: ReminderComponent }
+  { path: '', component: ReminderComponent }
 ];
 
 @NgModule({
