@@ -1,13 +1,13 @@
-<div class="container center">
+<div class="container">
 
   <!-- card de Inserção e atualização de novo lembrete -->
-  <mat-card class="card-capacity">
+  <mat-card class="card-cria">
     <mat-card-header>
-      <mat-card-title>Lembrete</mat-card-title>
-      <mat-card-subtitle>Start</mat-card-subtitle>
+      <mat-card-title>Criar Lembrete</mat-card-title>
+      <mat-card-subtitle>Preencha os Campos</mat-card-subtitle>
     </mat-card-header>
     <form [formGroup]="formulario" class="row">
-      <mat-form-field appearance="fill" class="col-md-4">
+      <mat-form-field appearance="fill" class="col-md-4" style="width: 90%;">
         <mat-label>Nome do lembrete</mat-label>
         <input matInput formControlName="nome">
         <app-vmessage *ngIf="formulario.get('nome')?.errors && formulario.get('nome')?.touched"
@@ -15,7 +15,7 @@
         </app-vmessage>
       </mat-form-field>
 
-      <mat-form-field appearance="fill" class="col-md-4">
+      <mat-form-field appearance="fill" class="col-md-4" style="width: 90%;">
         <mat-label>Data do lembrete</mat-label>
         <input matInput [matDatepicker]="picker" formControlName="data">
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
@@ -24,19 +24,39 @@
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
       <div class="center">
-        <button [disabled]="formulario.invalid" type="submit" class="btn btn-primary btn-block">login</button>
+        <button [disabled]="formulario.invalid || dataRetroativa()" type="submit" class="btn-submit" (click)="submit()"><span
+            *ngIf="!editando ">Criar</span><span *ngIf="editando ">Editar</span></button>
       </div>
     </form>
   </mat-card>
-</div>
 
   <!-- Listagem de lembretes -->
-  <div class="container">
-    <mat-list>
-      <mat-list-item *ngFor="let note of listaLembretes">
-        <mat-icon matListItemIcon>note</mat-icon>
-        <div matListItemTitle>{{note.nome}}</div>
-        <div matListItemLine>{{note.data | date}}</div>
-      </mat-list-item>
-    </mat-list>
+  <mat-card class="card-lembrete">
+    <h2 style="padding-left: 30px;">Lista de Lembretes</h2>
+    <div class="container" style="display: flex; padding-left: 15px; flex-wrap: wrap;">
+      <mat-list *ngFor="let datas of listaDatas">
+        <mat-card class="card-lembrete-dent">
+          <span style="display: flex; justify-content: center; padding-top: 10px;">{{datas | date:'dd/MM/YYYY'}}</span>
+          <div *ngFor="let note of listaLembretes">
+
+            <mat-list-item *ngIf="note.data==datas"
+              style="box-shadow:black 3px; border-radius: 5px; padding-bottom: 10px;">
+              <div style="display: flex; flex-direction: row; justify-content: space-around;">
+                <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
+                  <div style="display: flex; justify-content: space-between;" matListItemTitle>
+                    {{note.nome}}
+                  </div>
+                  <div style="display: flex;" matListItemLine>{{note.data | date}}</div>
+                </div>
+
+                <div style="display: flex;justify-content: right;">
+                  <button class="btn-delete" (click)="delete(note)">x</button>
+                </div>
+              </div>
+            </mat-list-item>
+          </div>
+        </mat-card>
+      </mat-list>
     </div>
+  </mat-card>
+</div>

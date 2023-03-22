@@ -9,14 +9,11 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatCardModule} from '@angular/material/card';
 import { HttpClientModule } from '@angular/common/http';
 import {MatListModule} from '@angular/material/list';
-
-
-
+import {MatIconModule} from '@angular/material/icon';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ReminderComponent } from './Forms/reminder/reminder.component';
-import { MenuComponent } from './Components/menu/menu.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { VMessageComponent } from './Components/vmessage/vmessage.component';
 
@@ -25,7 +22,6 @@ import { VMessageComponent } from './Components/vmessage/vmessage.component';
   declarations: [
     AppComponent,
     ReminderComponent,
-    MenuComponent,
     VMessageComponent
   ],
   imports: [
@@ -40,7 +36,8 @@ import { VMessageComponent } from './Components/vmessage/vmessage.component';
     BrowserAnimationsModule,
     MatCardModule,
     HttpClientModule,
-    MatListModule
+    MatListModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

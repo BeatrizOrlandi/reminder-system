@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { FormControl,FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { FormControl, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Reminder } from '../reminder';
 import { ReminderService } from '../reminder.service';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-reminder',
@@ -12,49 +13,85 @@ export class ReminderComponent {
 
   formulario: FormGroup;
   listaLembretes: Reminder[] = [];
+  listaDatas: any[] = [];
+  editando: boolean = false;
 
-  constructor(private fb: FormBuilder,
-              private serviceReminder: ReminderService
-              ) {
+  constructor(private fb: FormBuilder,private serviceReminder: ReminderService) {
     this.formulario = this.fb.group({
       nome: ['', Validators.required],
       data: ['', Validators.required]
     });
-   }
+  }
 
   ngOnInit() {
+
     this.iniciaListaLembretes();
   }
 
-  iniciaListaLembretes(){
-    this.serviceReminder.getReminders().subscribe((response)=>{
+  iniciaListaLembretes() {
+    this.listaLembretes = [];
+    this.listaDatas = [];
+    this.editando = false;
+    this.formulario.reset();
+    this.serviceReminder.getReminders().subscribe((response) => {
       this.listaLembretes = response;
+      this.atualizaDatasExistentes();
       console.log(this.listaLembretes);
     })
   }
+
+  atualizaDatasExistentes() {
+    this.listaLembretes.forEach((lembrete) => {
+      let existe = false;
+      this.listaDatas.forEach(data => {
+        if (lembrete.data === data) {
+          existe = true;
+        }
+      })
+      if (!existe) {
+        this.listaDatas.push(lembrete.data);
+      }
+    })
+    this.listaDatas.sort((a: string, b: string) => {
+      return Date.parse(a) - Date.parse(b);
+    });
+    console.log(this.listaDatas);
+  }
+  delete(reminder: Reminder) {
+    this.serviceReminder.deleteReminder(reminder).subscribe((response) => {
+      this.iniciaListaLembretes();
+    }
+    )
+  }
+  atualizar(reminder:Reminder){
+    this.editando = true;
+    reminder.data = formatDate(this.formulario.value.data, 'YYYY/MM/dd', 'en')
+    this.formulario.get('data')?.setValue(reminder.data);
+    this.formulario.get('nome')?.setValue(reminder.nome);
+    this.formulario.get('id')?.setValue(reminder.id);
+  }
+
+  submit() {
+    this.formulario.value.data = formatDate(this.formulario.value.data, 'YYYY/MM/dd', 'en');
+    if(!this.editando){   
+    if (!this.formulario.errors)
+      this.serviceReminder.saveReminder(this.formulario.value).subscribe((response) => {
+        this.iniciaListaLembretes();
+      });
+    }
+    else{
+      this.serviceReminder.updateReminder(this.formulario.value).subscribe((response)=>{
+        this.iniciaListaLembretes();
+      })
+    }
+    
+  }
+
+  dataRetroativa(): boolean{
+    var agora = new Date();
+    var escolhida = new Date(this.formulario.get('data')?.value);
+  if (escolhida < agora ) return true;
+  else return false;
+  }
 }
 
-const dataReatroativa = (formGroup: AbstractControl): ValidationErrors | null  => {
-   // Etapa 1
-   const dataInicial = new Date();
-   const valorDataFinal = formGroup.get('data')?.value;
-
-
-   const dataFinal = new Date(valorDataFinal);
-
-   // Etapa 3
-   const diferencaEmDias =
-       (dataFinal.getTime() - dataInicial.getTime())
-       / (1000 * 60 * 60 * 24);
-
-   // Etapa 4
-   return diferencaEmDias < 0
-       ? {
-               intervaloData: {
-                   atual: diferencaEmDias,
-                   min: 7
-               }
-       }
-       : null;
-
-}

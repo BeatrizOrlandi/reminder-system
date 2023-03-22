@@ -6,13 +6,45 @@ mat-form-field{
     display:flex;
     justify-content: center;
 }
-.card-capacity{
-    max-width: 90%;
+.card-cria{
+    max-width: min-content;
     min-height: 30%;
+    margin: 30px;
 }
-.btn{
+.card-lembrete{
+    min-width: 60%;
+    min-height: 30%;
+    margin: 30px;
+}
+.card-lembrete-dent{
+    width: 250px;
+    margin: 15px;
+    display: flex;
+    justify-content: center;
+}
+.btn-submit{
     margin: 20px;
+    background-color: rgb(106, 106, 240);
+    font-size: 18px;
+    border-radius: 8px;
+}
+.btn-delete{
+    margin: 5px;
+    height: 30px;
+    width: 30px;
+    font-size: 20px;
+    background-color: white;
+    color: gray;
+    border-radius: 40%;
+    border: 1px;
+}
+
+.btn-delete:hover {
+    color: black;
+    background-color: red;
+    transition: 0.5s;
 }
 .container{
     padding-bottom: 20px;
+    display: flex;
 }
