@@ -4,7 +4,7 @@ O projeto foi gerado usando [Angular CLI](https://github.com/angular/angular-cli
 
 Para armazenamento dos lembretes foi criado um json-server para simular o back-end/API
 
-Optei por uma aplicação WEB, e por uso do Json Server para gerar uma API FAke para consumi-lá
+Optei por uma aplicação WEB, e por uso do Json Server para gerar uma API para consumi-lá
 
 ## Requisitos para Executar o projeto
 Ter instalado o Angular e o Json-Server
@@ -29,4 +29,4 @@ Para executar o Json-Server para poder salvar e excluir lembretes, execute `json
 ## Observações de desenvolvimento
 A ideia inicial era poder além de criar e excluir poder atualizar os lembretes, a rota no service foi criada, porém por falta de experiência com o Json-Server o lembrete que era atualizado não era encontrado no server, apesar de existir.
 
-Por questão de tempo e falta de experiência Prévia não foi implementado os testes unitários, realizei a pesquisa para os testes, e tinha optado usar a Ferramenta Jasmine, mas pra implementar precisaria de um prazo maior.
+Por questão de tempo e falta de experiência prévia não foi implementado os testes unitários, realizei a pesquisa para os testes, e tinha optado usar a Ferramenta Jasmine, mas pra implementar precisaria de um prazo maior.
